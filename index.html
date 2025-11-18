@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SamuelDrea Portfolio</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css" />
+
+<style>
+/* ===== RESET ===== */
+*{box-sizing:border-box;padding:0;margin:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:system-ui, sans-serif;
+  background:#fff;
+  color:#111;
+  transition:.4s ease-in-out;
+}
+.dark-mode{
+  background:#070b14;
+  color:#e7ecf7;
+}
+
+/* GENERAL */
+.section{padding:6rem 0}
+.container{max-width:1100px;margin:auto;padding:0 1.2rem}
+.grid{display:grid;gap:1.5rem}
+.section__title{
+  text-align:center;
+  font-size:2.4rem;
+  margin-bottom:3rem;
+  opacity:0
+}
+
+/* ANIMATIONS */
+.fade-in{
+  opacity:0;
+  transform:translateY(40px);
+  transition:all .9s cubic-bezier(.17,.67,.26,1.24);
+}
+.fade-in.visible{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* HEADER */
+.header{
+  position:fixed;top:0;left:0;width:100%;
+  background:rgba(255,255,255,.7);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid #ccc;
+  z-index:10;
+  transition:.3s;
+}
+.dark-mode .header{background:rgba(15,18,30,.6);border-color:#222;}
+.nav{
+  height:4rem;display:flex;
+  justify-content:space-between;align-items:center;
+}
+.nav__logo{
+  font-weight:800;font-size:1.4rem
+}
+.nav__toggle,
+.nav__close{
+  font-size:1.8rem;cursor:pointer;display:none
+}
+.nav__list{display:flex;gap:1.3rem}
+.nav__link{font-weight:500;transition:.3s}
+.nav__link:hover{color:#007aff}
+.active-link{color:#007aff;font-weight:700}
+
+/* MOBILE MENU */
+@media(max-width:768px){
+  .nav__menu{
+    position:fixed;top:0;right:-100%;
+    width:70%;height:100%;
+    background:#fff;
+    padding:3rem 1.5rem;
+    display:flex;flex-direction:column;
+    gap:2.4rem;transition:.4s;
+  }
+  .dark-mode .nav__menu{background:#111729}
+  .nav__menu.show-menu{right:0}
+  .nav__toggle{display:block}
+  .nav__close{display:block;align-self:flex-end}
+  .nav__list{flex-direction:column;font-size:1.3rem}
+}
+
+/* HOME */
+.home__container{padding-top:7rem;text-align:center}
+.home__img{
+  width:180px;border-radius:50%;margin:auto;
+  filter: drop-shadow(0 5px 25px rgba(0,0,0,.2));
+  animation:float 3s ease-in-out infinite alternate;
+}
+@keyframes float{0%{transform:translateY(0)}100%{transform:translateY(-12px)}}
+.home__name{font-size:2.8rem;font-weight:800;margin:.5rem 0}
+.home__profession{font-size:1.3rem;opacity:.85;margin-bottom:1rem}
+.home__scroll{
+  display:inline-flex;flex-direction:column;align-items:center;
+  color:#007aff;margin-top:1rem;animation:upDown 2s infinite
+}
+@keyframes upDown {
+ 0%,100%{transform: translateY(0)}
+ 50%{transform: translateY(6px)}
+}
+
+/* WORK */
+.work__container{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.work__card{
+  padding:1.5rem;border-radius:1rem;
+  background:#f7f7f7;transition:.3s;
+}
+.dark-mode .work__card{background:#121d34}
+.work__card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 12px 35px rgba(0,0,0,.1);
+}
+.work__img{
+  width:100%;border-radius:1rem;margin-top:1rem;
+  filter:saturate(1.2);transition:.3s;
+}
+.work__card:hover .work__img{transform:scale(1.03)}
+
+/* SKILLS */
+.skills__content{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(110px,1fr));
+  gap:1.5rem;
+}
+.skills__box{
+  text-align:center;
+  padding:1rem;
+  border-radius:1rem;
+  background:#eef3ff;
+  transition:.2s;
+}
+.dark-mode .skills__box{background:#10182c}
+.skills__img{width:50px;margin-bottom:.5rem}
+.skills__name{font-weight:600;font-size:.9rem}
+.skills__box:hover{transform:scale(1.14)}
+
+/* CONTACT */
+.contact__input{
+  width:100%;padding:1rem;border-radius:.9rem;
+  border:2px solid transparent;background:#eee;margin-bottom:1rem;
+}
+.dark-mode .contact__input{background:#1a2335;color:#eee}
+.contact__input:focus{outline:none;border-color:#007aff}
+.button{
+  background:#007aff;color:#fff;padding:1rem;border:none;
+  border-radius:.9rem;cursor:pointer;font-weight:600;
+  position:relative;overflow:hidden;
+}
+.button::after{
+  content:"";position:absolute;width:0;height:0;
+  background:rgba(255,255,255,.5);
+  left:50%;top:50%;border-radius:50%;
+  transform:translate(-50%, -50%);transition:.4s;
+}
+.button:active::after{width:180px;height:180px}
+
+/* FOOTER */
+.footer{
+  padding:3rem 0;border-top:1px solid #ccc;
+  margin-top:3rem;text-align:center
+}
+.dark-mode .footer{border-color:#333}
+
+/* SCROLL UP */
+.scroolup{
+  position:fixed;right:1rem;bottom:-30%;
+  background:#007aff;color:#fff;
+  padding:.8rem;border-radius:50%;font-size:1.4rem;transition:.3s;
+}
+.show-scroll{bottom:1.5rem}
+
+/* DARK MODE TOGGLE */
+.dark-toggle{
+  position:fixed;left:1rem;bottom:1.5rem;
+  background:#111;font-size:1.2rem;
+  padding:.7rem;border-radius:50%;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  color:#ffd43b;transition:.3s;
+}
+.dark-toggle:hover{
+  transform:scale(1.15) rotate(10deg);
+  box-shadow:0 0 18px rgba(255,212,59,.5);
+}
+.dark-mode .dark-toggle{background:#fff;color:#111}
+</style>
+</head>
+
+<body>
+
+<header class="header fade-in">
+  <nav class="nav container">
+    <a href="#" class="nav__logo">Samuel</a>
+
+    <div class="nav__menu" id="nav-menu">
+      <ul class="nav__list">
+        <li><a href="#home" class="nav__link">Home</a></li>
+        <li><a href="#work" class="nav__link">Work</a></li>
+        <li><a href="#info" class="nav__link">My Info</a></li>
+        <li><a href="#skills" class="nav__link">Skills</a></li>
+        <li><a href="#contact" class="nav__link">Contact Me</a></li>
+      </ul>
+      <div class="nav__close" id="nav-close"><i class="ri-close-large-line"></i></div>
+    </div>
+
+    <div class="nav__toggle" id="nav-toggle"><i class="ri-menu-line"></i></div>
+  </nav>
+</header>
+
+<main class="main">
+
+<section class="home section fade-in" id="home">
+  <div class="home__container container grid">
+    <img src="assets/img/JTPF8179-removebg-preview.png" class="home__img">
+    <h1 class="home__name">Samuel <br> Abioro</h1>
+    <h3 class="home__profession">Web Developer</h3>
+    <a href="#work" class="home__scroll">
+      <div><i class="ri-arrow-down-line"></i></div>
+      <span>Recent Works</span>
+    </a>
+  </div>
+</section>
+
+<section class="work section fade-in" id="work">
+  <h2 class="section__title">RECENT WORKS</h2>
+  <div class="work__container container grid">
+    <article class="work__card">
+      <h2>Teacher</h2>
+      <p>
+         Developed lesson plans aligned with curriculum standards and student's needs.
+         Facilitate engaging classrooms discussions to promote student participation and learning.
+         Collaborated with colleagues to create interdisciplinary and extra curriculum projects and activities.
+         Managed classrooms behavior using positive reinforcements techniques and strategies.
+         Built and strengthened positive relationships with students, parent and teaching staffs.
+      </p>
+      <img src="assets/img/work 1.webp" class="work__img">
+    </article>
+  </div>
+</section>
+
+<section class="info section fade-in" id="info">
+  <h2 class="section__title">MY INFO</h2>
+  <div class="container grid">
+    <p>
+      I am Samuel Abioro, a passionate web developer with expertise in creating dynamic websites.
+      Skilled in HTML, CSS, JS & UI design—focused on high-quality user experience.
+      I am a committed job seeker with a history of meeting company needs with consistent and organized practices.
+    </p>
+
+    <p>
+      With a background in teaching, I bring strong communication and organizational skills to web development.
+      I am eager to contribute my skills to a dynamic team and grow in the tech industry, by rendering quality services;
+       <ordered list> 
+            <li>Development of  Websites.</li>
+            <li>Web Design</li>
+            <li>Responsive Web Design</li>
+            <li>Seo (Web Pages)</li>
+            <li>Amaizing Graphics Designing etc..</li>
+       </ordered list>
+    </p>
+  </div>
+</section>
+
+<section class="skills section fade-in" id="skills">
+  <h2 class="section__title">SKILLS</h2>
+  <div class="container">
+    <div class="skills__content">
+
+      <div class="skills__box"><img src="assets/img/info-html.svg" class="skills__img"><span class="skills__name">HTML</span></div>
+      <div class="skills__box"><img src="assets/img/info-css.svg" class="skills__img"><span class="skills__name">CSS</span></div>
+      <div class="skills__box"><img src="assets/img/info-figma.svg" class="skills__img"><span class="skills__name">FIGMA</span></div>
+      <div class="skills__box"><img src="assets/img/info-git.svg" class="skills__img"><span class="skills__name">GIT</span></div>
+      <div class="skills__box"><img src="assets/img/info-github.svg" class="skills__img"><span class="skills__name">GITHUB</span></div>
+      <div class="skills__box"><img src="assets/img/info-javascript.svg" class="skills__img"><span class="skills__name">JAVASCRIPT</span></div>
+      <div class="skills__box"><img src="assets/img/info-react.svg" class="skills__img"><span class="skills__name">REACT</span></div>
+      <div class="skills__box"><img src="assets/img/info-sass.svg" class="skills__img"><span class="skills__name">SASS</span></div>
+
+    </div>
+  </div>
+</section>
+
+<section class="contact section fade-in" id="contact">
+  <h2 class="section__title">CONTACT ME</h2>
+
+  <div class="container grid">
+    <form class="contact__form">
+      <input type="text" placeholder="Name" class="contact__input">
+      <input type="email" placeholder="Email" class="contact__input">
+      <textarea placeholder="Message" class="contact__input"></textarea>
+      <button type="submit" class="button">Send Message</button>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer fade-in">
+  <p>© All Rights Reserved By SamuelDrea</p>
+</footer>
+
+<a href="#" class="scroolup" id="scroll-up"><i class="ri-arrow-up-line"></i></a>
+
+<div class="dark-toggle" id="dark-toggle">
+  <i class="ri-moon-line"></i>
+</div>
+
+<script>
+/* MENU */
+const navMenu=document.getElementById('nav-menu');
+const navToggle=document.getElementById('nav-toggle');
+const navClose=document.getElementById('nav-close');
+
+navToggle.onclick=()=>navMenu.classList.add('show-menu');
+navClose.onclick=()=>navMenu.classList.remove('show-menu');
+document.querySelectorAll('.nav__link').forEach(n=>n.onclick=()=>navMenu.classList.remove('show-menu'));
+
+/* ACTIVE LINK */
+const sections=document.querySelectorAll('section[id]');
+function scrollActive(){
+  const scrollY=window.pageYOffset;
+  sections.forEach(sec=>{
+    const h=sec.offsetHeight,
+    t=sec.offsetTop-60,
+    i=sec.getAttribute('id');
+    let link=document.querySelector('.nav__link[href*='+i+']');
+    scrollY>t && scrollY<=t+h ?
+      link.classList.add('active-link') :
+      link.classList.remove('active-link');
+  })
+}
+window.addEventListener('scroll',scrollActive)
+
+/* SCROLL UP */
+function scrollUp(){
+  const up=document.getElementById('scroll-up');
+  this.scrollY>=300 ? up.classList.add('show-scroll') : up.classList.remove('show-scroll');
+}
+window.addEventListener('scroll',scrollUp)
+
+/* DARK MODE */
+const toggle=document.getElementById('dark-toggle');
+toggle.onclick=()=>{
+  document.body.classList.toggle('dark-mode')
+  toggle.innerHTML =
+    document.body.classList.contains('dark-mode')
+    ? '<i class="ri-sun-line"></i>'
+    : '<i class="ri-moon-line"></i>';
+}
+
+/* SCROLL ANIMATION */
+const reveal=document.querySelectorAll('.fade-in')
+const obs=new IntersectionObserver((entries)=>{
+  entries.forEach(ent=>{
+    if(ent.isIntersecting){ent.target.classList.add('visible')}
+  })
+},{threshold:.25})
+reveal.forEach(el=>obs.observe(el))
+</script>
+
+</body>
+</html>
+
